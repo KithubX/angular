@@ -9,7 +9,7 @@
 import * as ts from 'typescript';
 import { ClassMember, Decorator, Parameter, ReflectionHost } from '../../../ngtsc/host';
 import { TypeScriptReflectionHost } from '../../../ngtsc/metadata/src/reflector';
-import { NgccReflectionHost } from './ngcc_host';
+import { DecoratedClass, NgccReflectionHost } from './ngcc_host';
 
 /**
  * ESM5 packages contain ECMAScript IIFE functions that act like classes. For example:
@@ -27,6 +27,10 @@ import { NgccReflectionHost } from './ngcc_host';
 export class Esm5ReflectionHost extends TypeScriptReflectionHost implements NgccReflectionHost {
   constructor(private checker2: ts.TypeChecker) {
     super(checker2);
+  }
+
+  getDecoratedClasses(entryPoint: ts.SourceFile): DecoratedClass[] {
+    throw new Error('Not implemented');
   }
 
   getDecoratorsOfDeclaration(declaration: ts.Declaration): Decorator[]|null {
