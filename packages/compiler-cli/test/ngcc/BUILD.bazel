@@ -8,8 +8,6 @@ ts_library(
         "ngcc_spec.ts",
     ],
     deps = [
-        "//packages/compiler",
-        "//packages/compiler-cli",
         "//packages/compiler-cli/src/ngcc",
         "//packages/compiler-cli/test:test_utils",
     ],
