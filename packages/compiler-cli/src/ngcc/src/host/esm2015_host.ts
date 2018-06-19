@@ -9,7 +9,7 @@
 import * as ts from 'typescript';
 import { Decorator } from '../../../ngtsc/host';
 import { TypeScriptReflectionHost } from '../../../ngtsc/metadata/src/reflector';
-import { DecoratedClass, NgccReflectionHost } from './ngcc_host';
+import { NgccReflectionHost } from './ngcc_host';
 
 const DECORATORS = 'decorators' as ts.__String;
 const PROP_DECORATORS = 'propDecorators' as ts.__String;
@@ -33,7 +33,8 @@ const PROP_DECORATORS = 'propDecorators' as ts.__String;
  *   "ngForOf": [{ type: Input },],
  *   "ngForTrackBy": [{ type: Input },],
  *   "ngForTemplate": [{ type: Input },],
- * }; * ```
+ * };
+ * ```
  *
  * Items are decorated if they have a static property called `decorators`.
  *
@@ -42,28 +43,6 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
   constructor(private checker2: ts.TypeChecker) {
     // if `TypeScriptReflectionHost` made `checker` "protected" then `checker2` would not be needed
     super(checker2);
-  }
-
-  /**
-   * Search the AST of the specified source file, looking for classes that have been decorated.
-   * @param entryPoint The source file containing the exports to find.
-   * @returns an array containing the decorated classes found in this file.
-   */
-  getDecoratedClasses(entryPoint: ts.SourceFile): DecoratedClass[] {
-    const decoratedClasses: DecoratedClass[] = [];
-    const walk = (node: ts.Node) => {
-      ts.forEachChild(node, node => {
-        if (this.isClass(node)) {
-          const decorators = this.getDecoratorsOfDeclaration(node);
-          if (decorators && decorators.length) {
-            decoratedClasses.push({ classNode: node, decorators });
-          }
-        }
-      });
-    };
-
-    walk(entryPoint);
-    return decoratedClasses;
   }
 
   /**
@@ -190,7 +169,8 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
 
   private findPropertyValue(map: ts.ObjectLiteralExpression, propertyName: string) {
     // Properties could be an identifier or a string literal
-    const property = map.properties.find(prop => propertyName === (ts.isIdentifier(prop) || ts.isStringLiteral(prop) && prop.text));
-    return (property && ts.isPropertyAssignment(property)) ? property.initializer : null;
+    const properties = map.properties.filter(node => ts.isPropertyAssignment(node)) as ts.PropertyAssignment[];
+    const property = properties.find(prop => prop.name.getText() === propertyName);
+    return property ? property.initializer : null;
   }
 }

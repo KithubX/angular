@@ -29,10 +29,6 @@ export class Esm5ReflectionHost extends TypeScriptReflectionHost implements Ngcc
     super(checker2);
   }
 
-  getDecoratedClasses(entryPoint: ts.SourceFile): DecoratedClass[] {
-    throw new Error('Not implemented');
-  }
-
   getDecoratorsOfDeclaration(declaration: ts.Declaration): Decorator[]|null {
     // This is different to ES2015 and TS
     throw new Error('Not implemented');
