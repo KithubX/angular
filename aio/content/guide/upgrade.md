@@ -56,7 +56,7 @@ application should reside in different directories and NgModules.
 
 When an application is laid out feature per feature in this way, it can also be
 migrated one feature at a time. For applications that don't already look like
-this, applying the rules in the AngularJS style guide is a highly recommended
+this, applying the rules in the [AngularJS style guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md) is a highly recommended
 preparation step. And this is not just for the sake of the upgrade - it is just
 solid advice in general!
 
