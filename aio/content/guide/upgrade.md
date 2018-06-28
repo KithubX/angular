@@ -1,7 +1,11 @@
 # ngUpgrade
 
+<<<<<<< HEAD
 _Angular_ is the name for the Angular of today and tomorrow.<br />
 _AngularJS_ is the name for all 1.x versions of Angular.
+=======
+<img src="generated/images/guide/upgrade/angular-terms.png" alt="Module" class="center">
+>>>>>>> Update upgrade.md
 
 This guide describes the built-in tools for efficiently migrating AngularJS projects over to the
 Angular platform using ngUpgrade.
